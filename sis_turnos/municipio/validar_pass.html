@@ -1,0 +1,42 @@
+<html>
+<head>
+	      <script src="js/validar_pass.js"></script>
+	<style type="text/css">
+.valid{
+color: green;
+
+}
+.invalid{
+color: red;
+}
+	</style>
+</head>
+<body>
+
+                           <div class="alert alert-info" id="pswd_info">
+                                <button data-dismiss="alert" class="close">×</button>
+
+   <h4>La contraseña debería cumplir con los siguientes requerimientos:</h4>
+   <ul>
+      <li id="letter">Al menos debería tener <strong>una letra</strong></li>
+      <li id="capital">Al menos debería tener <strong>una letra en mayúsculas</strong></li>
+      <li id="number">Al menos debería tener <strong>un número</strong></li>
+      <li id="length">Debería tener <strong>8 carácteres</strong> como mínimo</li>
+   </ul>
+                            </div>
+<form id="form_add_empleado" class="form-horizontal" >
+<input type="hidden" id="id_user" name="id_user" value="<?php echo $_SESSION['idusuario']; ?>"/>
+<div class="control-group">
+<div id="Info"></div> 
+<input type="password" placeholder="Contraseña actual(*)" id="pass_actual" name="pass_actual" onkeypress="return soloNumeros(event)"  onblur="javascript: validarcedula(this.value);" maxlength="13" class="span12  popovers" data-trigger="hover" data-content="Por favor digite el nùmero de cedula del usuario" data-original-title="CEDULA" required/>
+</div>
+<div class="control-group">
+<input type="password" placeholder="Nueva contraseña" id="new_pass" name="new_pass" class="span12  popovers" data-trigger="hover" data-content="Por favor digite el Nombre del usuario" data-original-title="NOMBRE" required/>
+</div>
+<div class="control-group">
+<input type="password" placeholder="Confirmar Contraseña" id="confirm_pass" name="confirm_pass" class="span12  popovers" data-trigger="hover" data-content="Por favor digite el Apellido del usuario" data-original-title="APELLIDO" required/>
+</div>
+</form>
+
+</body>
+</html>

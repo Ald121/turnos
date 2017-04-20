@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".menu_inicio">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MI TURNO ACTUAL"
+        android:id="@+id/btn_mi_turno"
+        android:textColor="#ffffff"
+        android:background="#3d5afe"
+        android:layout_below="@+id/btn_modulos"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="20px" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="GENERAR TURNO"
+        android:id="@+id/btn_generar"
+        android:textColor="#ffffff"
+        android:background="#3d5afe"
+        android:layout_below="@+id/btn_mi_turno"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/btn_mi_turno"
+        android:layout_alignEnd="@+id/btn_mi_turno"
+        android:layout_marginTop="20px" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SALIR"
+        android:id="@+id/btn_salir_app"
+        android:textColor="#ffffff"
+        android:background="#fe3d3d"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/btn_generar"
+        android:layout_alignEnd="@+id/btn_generar" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView2"
+        android:src="@drawable/logo_otavalo"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MODULOS"
+        android:id="@+id/btn_modulos"
+        android:textColor="#ffffff"
+        android:background="#3d5afe"
+        android:layout_below="@+id/imageView2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="20px" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MI PERFIL"
+        android:id="@+id/btn_miperfil"
+        android:textColor="#ffffff"
+        android:background="#3d5afe"
+        android:layout_below="@+id/btn_generar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/btn_generar"
+        android:layout_alignEnd="@+id/btn_generar"
+        android:layout_marginTop="20px" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MIS TURNOS"
+        android:id="@+id/btn_misturnos"
+        android:textColor="#ffffff"
+        android:background="#3d5afe"
+        android:layout_below="@+id/btn_miperfil"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="20px" />
+</RelativeLayout>

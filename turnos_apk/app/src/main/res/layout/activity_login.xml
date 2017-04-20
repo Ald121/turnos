@@ -1,0 +1,72 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:gravity="center_horizontal"
+    android:orientation="vertical"  tools:context=".LoginActivity"
+    android:weightSum="1">
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SALIR"
+        android:id="@+id/btn_close"
+        android:layout_alignParentStart="true"
+        android:textColor="#ffffff"
+        android:background="#fe3d40"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="20px"
+        android:layout_above="@+id/btn_salir_app"
+        android:layout_gravity="right"
+        android:layout_marginRight="10dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:src="@drawable/logo_otavalo"
+        android:layout_marginTop="20dp" />
+
+    <EditText android:id="@+id/email" android:layout_width="223dp"
+        android:layout_height="wrap_content" android:hint="Usuario"
+        android:inputType="textEmailAddress" android:maxLines="1"
+        android:singleLine="true"
+        android:layout_marginTop="150px" />
+
+    <EditText android:id="@+id/password" android:layout_width="221dp"
+        android:layout_height="wrap_content" android:hint="Contraseña"
+        android:inputType="textPassword"
+        android:maxLines="1" android:singleLine="true" />
+
+    <Button
+        android:layout_width="226dp"
+        android:layout_height="wrap_content"
+        android:text="INGRESAR"
+        android:id="@+id/sign_in_register"
+        android:layout_alignParentStart="true"
+        android:textColor="#ffffff"
+        android:background="#3d5afe"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="20px"
+        android:layout_above="@+id/btn_salir_app" />
+
+    <Button
+        android:layout_width="226dp"
+        android:layout_height="wrap_content"
+        android:text="REGISTRARSE"
+        android:id="@+id/btn_registrarse"
+        android:layout_alignParentStart="true"
+        android:textColor="#ffffff"
+        android:background="#fea43d"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="20px"
+        android:layout_above="@+id/btn_salir_app"
+        android:layout_gravity="center_horizontal" />
+
+</LinearLayout>
+

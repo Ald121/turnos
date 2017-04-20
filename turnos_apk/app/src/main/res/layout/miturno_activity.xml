@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@drawable/turno">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="75dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="30dp"
+        android:id="@+id/relativeLayout"
+        android:layout_marginTop="80px">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="FECHA"
+            android:id="@+id/lbl_fecha"
+            android:textSize="40px"
+            android:textStyle="bold"
+            android:layout_below="@+id/lbl_miturno"
+            android:layout_alignLeft="@+id/lbl_miturno"
+            android:layout_alignStart="@+id/lbl_miturno"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="HORA ESTIMADA"
+            android:id="@+id/lbl_hora_estimanda"
+            android:textSize="40px"
+            android:textStyle="bold"
+            android:layout_below="@+id/lbl_fecha"
+            android:layout_alignLeft="@+id/lbl_fecha"
+            android:layout_alignStart="@+id/lbl_fecha"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="NRO. TURNO"
+            android:id="@+id/lbl_miturno"
+            android:textSize="40px"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/txt_titulo"
+            android:layout_toRightOf="@+id/button"
+            android:layout_toEndOf="@+id/button"
+            android:layout_marginLeft="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="SU TURNO"
+            android:id="@+id/txt_titulo"
+            android:textSize="50px"
+            android:textStyle="bold"
+            android:layout_below="@+id/button"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="DEPARTAMENTO"
+            android:id="@+id/lbl_departamento"
+            android:textSize="40px"
+            android:textStyle="bold"
+            android:layout_below="@+id/lbl_hora_estimanda"
+            android:layout_toLeftOf="@+id/txt_titulo"
+            android:layout_toStartOf="@+id/txt_titulo"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="MODULO"
+            android:id="@+id/lbl_modulo"
+            android:textSize="40px"
+            android:textStyle="bold"
+            android:layout_alignBottom="@+id/lbl_miturno"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="40dp" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="FECHA ACTUAL"
+        android:id="@+id/txt_fecha_actual"
+        android:textSize="40px"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20px" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="HORA ACTUAL"
+        android:id="@+id/txt_hora_actual"
+        android:textSize="40px"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="20px"
+        android:layout_marginRight="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Nota: Usted debera esta 10 minutos antes de la hora estimada"
+        android:id="@+id/lbl_nota"
+        android:textSize="40px"
+        android:textStyle="bold"
+        android:textColor="#f24037"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="30dp"
+        android:layout_marginRight="20dp" />
+
+</RelativeLayout>
