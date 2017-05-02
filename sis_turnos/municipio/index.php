@@ -360,7 +360,7 @@ setInterval( "actualizar()", 3000 );
    <script src="js/easy-pie-chart.js"></script>
    <script src="js/sparkline-chart.js"></script>
    <script src="js/home-page-calender.js"></script>
-   <script src="js/home-chartjs.js"></script>
+   <!-- <script src="js/home-chartjs.js"></script> -->
 
    <!-- END JAVASCRIPTS -->   
 </body>

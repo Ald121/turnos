@@ -125,15 +125,15 @@
                                     if (isset($_REQUEST['RegistrarCliente'])) {
                                         $sql = "INSERT INTO usuario (cedula,nombre,apellido,telefono,direccion,email,sexo,estado,usuario,pass,tipo_user) "
                                                 . "VALUES ('" . $_POST['cedula'] . "',
-		'" . $_POST['nombre'] . "',
-		'" . $_POST['apellido'] . "',
-                '" . $_POST['telefono'] . "',
-		'" . $_POST['direccion'] . "',
-		'" . $_POST['email'] . "',
-		'" . $_POST['genero'] . "',
-		'ACTIVO',
-		'" . $_POST['usuario'] . "',
-		'" . $_POST['pass'] . "','CLIENTE')";
+                                    		'" . $_POST['nombre'] . "',
+                                    		'" . $_POST['apellido'] . "',
+                                                    '" . $_POST['telefono'] . "',
+                                    		'" . $_POST['direccion'] . "',
+                                    		'" . $_POST['email'] . "',
+                                    		'" . $_POST['genero'] . "',
+                                    		'ACTIVO',
+                                    		'" . $_POST['usuario'] . "',
+                                    		'" . $_POST['pass'] . "','CLIENTE')";
                                         if ($sql) {
                                           $conexion->query($sql);
                                             echo "<script> alert('SE REGISTRO CORRECTAMENTE!! ');  </script>";

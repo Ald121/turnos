@@ -47,5 +47,34 @@ $fila2 = $resultado2->fetch_array();
                         <div class="status" style="text-transform:uppercase"><strong>INICIAR</strong></div>
                         </a>
                     </div>
-              
+
+<div class="metro-nav-block nav-block-orange">
+                        <a data-original-title="" href="#" id="btn_detener_atencion">
+                        <i class="icon-remove-sign"></i>
+                        <div class="status" style="text-transform:uppercase"><strong>DETENER ATENCIÓN</strong></div>
+                        </a>
+                    </div>
+
+     <script type="text/javascript">
+
+ $(document).ready(function(){
+
+    $("#btn_detener_atencion").on("click", function(){
+        var parametros = {};
+                $.ajax({
+                        data:  parametros,
+                        url:   'proc_turnos/detener_atencion.php',
+                        type:  'post',
+                        beforeSend: function () {
+                              // $("#div_asignacion").html("Procesando, espere por favor...");
+                        },
+                        success:  function (response) {
+                                console.log(response);
+                        }
+                });
+            });
+
+    })
+
+ </script>
 
