@@ -5,7 +5,7 @@
 <!-- BEGIN HEAD -->
 <head>
    <meta charset="utf-8" />
-   <title>USUARIOS / ATENDIOS / EN ESPERA / PERDIDOS</title>
+   <title>MIS TURNOS</title>
    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
    <meta content="" name="description" />
    <meta content="Mosaddek" name="author" />
@@ -18,57 +18,46 @@
    <link href="css/style-default.css" rel="stylesheet" id="style_color" />
    <link href="assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />
    <link href="assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen"/>
+
    <script src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+ $('#form_eliminar').hide();
+
+$('.btn_cancelar_turno').click(function(){
+
+//alert($(this).attr('idturnocancelar'));
+$('#txtidanuncio').val($(this).attr('idturnocancelar'));
+   $('#form_eliminar').show('slow');
+  
+});
+
+$('.btn_si').click(function(){
+   $('#form_eliminar').hide();
+   // alert($('#txtiduser').val());
+    var formData = new FormData($("#form_eliminar")[0]);
+      var ruta = "proc_turnos/proc_cancelar_turno.PHP";
+            $.ajax({
+                url: ruta,
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(datos)
+                {
+                    $("#respuesta_cancelacion").html(datos);
+                }
+            });
+
+});
+
+});
+
+</script>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
 <body class="fixed-top">
-
-<script type="text/javascript">
-$(document).ready(function(){
-
-     $("#btn_generar").click(function () {
-                     
- var parametros = {
-       "estado" : $('.radioestado').val(),
-       "idusuario" : $('#idusuario').val()
-        };
-
- $.ajax({
-  data: parametros,
-                url: 'proc_turnos/pdf_clientes.php',
-                type: "POST",
-                success: function(datos)
-                {
-                   // $("#tabla_mis_usuarios").html(datos);
-                }
-            });
-
-
-                    });
-
-
-/*$("#txtbusqueda").keyup(function(event) {
-  var parametros = {
-       "textobusqueda" : $('#txtbusqueda').val(),
-       "estado" : $(this).val(),
-       "idusuario" : $('#idusuario').val()
-        };
-
- $.ajax({
-  data: parametros,
-                url: 'proc_turnos/tabla_mis_usuarios.php',
-                type: "POST",
-                success: function(datos)
-                {
-                    $("#tabla_mis_usuarios").html(datos);
-                }
-            });
-});*/
-
-
-});
-</script>
    <!-- BEGIN HEADER -->
    <div id="header" class="navbar navbar-inverse navbar-fixed-top">
        <!-- BEGIN TOP NAVIGATION BAR -->
@@ -104,7 +93,7 @@ $(document).ready(function(){
                <div class="span12">
                                     <!-- BEGIN PAGE TITLE & BREADCRUMB-->
                    <h3 class="page-title">
-                     USUARIOS ATENDIDOS / EN ESPERA
+                     MIS TURNOS
                    </h3>
                    <ul class="breadcrumb">
                        <li>
@@ -112,7 +101,7 @@ $(document).ready(function(){
                            <span class="divider">/</span>
                        </li>
                        <li class="active">
-                       Usuarios Atendidos / en Espera
+                        Mis Turnos
                        </li>
                        <li class="pull-right search-wrap">
                            <form action="search_result.html" class="hidden-phone">
@@ -133,50 +122,62 @@ $(document).ready(function(){
 <div class="span12">
 <div class="widget blue" >
                         <div class="widget-title">
-                            <h4><i class="icon-user"> </i> <i class="icon-user"> </i>   USUARIOS ATENDIDOS / EN ESPERA</h4>
+                            <h4><i class="icon-reorder"> </i> MIS TURNOS</h4>
                             <span class="tools">
                                 <a href="javascript:;" class="icon-chevron-down"></a>
                                 <a href="javascript:;" class="icon-remove"></a>
                             </span>
                         </div>
                         <div class="widget-body">
-<?php if ($_SESSION["tipouser"]=='CLIENTE') {
- ?>
- <form metod="GET" action="proc_turnos/pdf_mis_turnos.php">
-<?php 
-};
-  ?>                        
-<?php if ($_SESSION["tipouser"]=='ADMIN') {
- ?>
- <form metod="GET" action="proc_turnos/pdf_clientes_admin.php">
-<?php 
-};
- ?>
- <?php if ($_SESSION["tipouser"]=='SECRE') {
- ?>
- <form metod="GET" action="proc_turnos/pdf_clientes.php">
+                            
+<form class="label label-important" id="form_eliminar">
+    <input type="hidden" id="txtidanuncio" name="txtidanuncio">
+¿Esta seguro de Cancelar su turno?
+<input type="button" value="SI" class="btn_si">
+</form>
+
+<div id="respuesta_cancelacion"></div>
+
+<table class="table table-striped table-bordered table-advance table-hover">
+                      <thead>
+                                    <tr>
+                                        <th><i class=""></i> NRO. TURNO</th>
+                                        <th><i class=""></i> CLIENTE</th>
+                                        <th><i class=""></i> NRO. DE VISITAS</th>
+                                        <th><i class=""></i> DEPARTAMENTO</th>
+                                        <th><i class=""></i> FECHA</th>                                       
+                                        <th><i class=""></i> HORA</th>
+                                        <!-- <th><i class=""></i> IMPRIMIR</th> -->
+                                        <!-- <th><i class=""></i> CANCELAR</th> -->
+                                    </tr>
+                                                                       </thead>
+                                    <tbody>
+<?php
+include 'conexion.php';
+
+$consulta_mod = "SELECT count(turnos.nroturno)as visitas,nombre,apellido,nombre_departamento,turnos.nroturno,fecha,hora FROM turnos,turnos_proc,usuario WHERE usuario.idusuario=turnos.idusuario and turnos.nroturno=turnos_proc.nroturno AND turnos_proc.estado='ATENDIDO' GROUP BY turnos.idusuario;";
+
+
+
+$resultado_mod = $conexion->query($consulta_mod)or die ( $mysqli->error);
+while ($fila_mod = $resultado_mod->fetch_array()) {
+
+?>
+<tr>
+
+                                        <td ><?php echo $fila_mod['nroturno'];?></td>
+                                        <td ><?php echo $fila_mod['nombre'].' '.$fila_mod['apellido'];?></td>
+                                        <td ><?php echo $fila_mod['visitas']?></td>
+                                        <td ><?php echo $fila_mod['nombre_departamento'];?></td>
+                                        <td ><?php echo $fila_mod['fecha'];?></td>
+                                        <td ><?php echo $fila_mod['hora'];?></td>
+</tr>
 <?php 
 }
  ?>
-            
- <form metod="GET" action="proc_turnos/pdf_clientes_admin.php">
-  <input id="idusuario" name="idusuario" type="hidden" value="<?php echo $_SESSION['idusuario']; ?>">
-<?php if ($_SESSION["tipouser"]=='ADMIN'||$_SESSION["tipouser"]=='SECRE') {
- ?>
-<input id="idusuario" name="idusuario" type="hidden" value="<?php echo $_SESSION['idusuario']; ?>">
-<input id="txtbusqueda" type="hidden" placeholder="Búsqueda por: cedula,nombres o apellidos" class="span5">
+                                      </tbody>
+                                </table>
 
-<input checked class="radioestado" type="radio"  name="estado" style="width: 15px;" value="EN ESPERA"> EN ESPERA
-<input class="radioestado" type="radio"  name="estado" style="width: 15px;" value="ATENDIDO" > ATENDIDOS
-<input class="radioestado" type="radio"  name="estado" style="width: 15px;" value="ACTIVO" > ACTIVOS
-<input class="radioestado" type="radio"  name="estado" style="width: 15px;" value="CANCELADO" > CANCELADOS 
-<input class="radioestado" type="radio"  name="estado" style="width: 15px;" value="PERDIDO" > PERDIDOS<br><br>
-             <?php 
-};
-?>               
-<input type="Submit" id="btn_generar" class="btn btn-info" value="GENERAR PDF">
-
- </form>
                             </div>
                             </div>
 
@@ -189,7 +190,7 @@ $(document).ready(function(){
 
    <!-- BEGIN JAVASCRIPTS -->
    <!-- Load javascripts at bottom, this will reduce page load time -->
-   
+
    <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
    <script type="text/javascript" src="assets/jquery-slimscroll/jquery-ui-1.9.2.custom.min.js"></script>
    <script type="text/javascript" src="assets/jquery-slimscroll/jquery.slimscroll.min.js"></script>

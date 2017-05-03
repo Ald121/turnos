@@ -181,6 +181,15 @@ if ($fila_mod['estado']=="CANCELADO") {
 <?php 
 }
  ?>
+
+                                       <?php 
+if ($fila_mod['estado']=="PERDIDO") {
+                                         ?>
+                                        <td class="label label-perdido" style="background: #999 !important;"><?php echo $fila_mod['estado'];?></td>
+
+<?php 
+}
+ ?>
 </tr>
 <?php 
 }

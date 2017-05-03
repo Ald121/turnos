@@ -94,6 +94,7 @@ if($_SESSION["tipouser"]=='ADMIN'){
  <li><a class="" href="reporte_clientes_atendidos.php">Usuarios Atendidos/Cancelados</a></li>
   <li><a class="" href="reporte_tramite_mas_solicitado.php">Tramite mas Solicitado</a></li>
   <li><a class="" href="reporte_turnos_mes.php">Turnos Semanales/Mensuales</a></li>
+  <li><a class="" href="reporte_clientes_visitas.php">Clientes Visitas</a></li>
                     </ul>
     </li>
 

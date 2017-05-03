@@ -245,6 +245,12 @@ $sql = "UPDATE turnos_proc SET tiempo='".$_GET['tiempo']."' WHERE nroturno='".$_
 if(isset($_GET['btn_perdido'])){
 
 
+$sql = "SELECT nroturno FROM turnos_proc WHERE turnos_proc.nroturno='".$_SESSION["turnoactual"]."' AND turnos_proc.estado='PERDIDO';";
+$resultado = $conexion->query($sql)or die($conexion->error);  
+$data_turno = $resultado->fetch_array();
+
+if (count($data_turno)==0) {
+
 function nro_mas($number,$n) { 
 return str_pad(((int) $number)+1,$n,"0",STR_PAD_LEFT); 
 }
@@ -289,11 +295,95 @@ $sql = "UPDATE turnos SET observaciones='$observaciones' WHERE nroturno='".$_SES
 $sql = "UPDATE turnos_proc SET tiempo='".$_GET['tiempo']."' WHERE nroturno='".$_SESSION["turnoactual"]."'";
  $resultado = $conexion->query($sql)or die($conexion->error);                                     
                                         if ($resultado===TRUE) {
-
-                                          //echo "('OK TIEMPO')";
                                         } else {
-                                            // echo "('ERROR TIEMPO')";
                                         }
+// UPDATE Empleado
+
+$sql = "UPDATE turnos_proc SET id_empleado='".$_SESSION['idusuario']."' WHERE nroturno='".$_SESSION["turnoactual"]."' AND turnos_proc.estado='PERDIDO'";
+ $resultado = $conexion->query($sql)or die($conexion->error);                                     
+                                        if ($resultado===TRUE) {
+                                        } else {
+                                        }
+
+// Enviar notificacion de Turno perdido
+
+$sql = "SELECT turnos_proc.nroturno,nombre_departamento,nombre,apellido,fecha,email FROM turnos,turnos_proc,usuario WHERE turnos.nroturno=turnos_proc.nroturno and turnos.idusuario=usuario.idusuario and turnos_proc.nroturno='".$_SESSION["turnoactual"]."' AND turnos_proc.estado='PERDIDO';";
+$resultado = $conexion->query($sql)or die($conexion->error);  
+$data_turno = $resultado->fetch_array();
+
+if (count($data_turno)>0) {
+  
+// print_r($data_turno['nroturno']);
+
+require("../email/class.phpmailer.php");
+require("../email/class.smtp.php");
+
+//Especificamos los datos y configuraci�n del servidor
+$mail = new PHPMailer();
+$mail->IsSMTP();
+$mail->SMTPAuth = true;
+$mail->SMTPSecure = "ssl";
+$mail->Host = "smtp.gmail.com";
+$mail->Port = 465;
+
+//Nos autenticamos con nuestras credenciales en el servidor de correo Gmail
+$mail->Username = "patriandsjaypi@gmail.com";
+$mail->Password = "paghdyytbvskvwcx";
+
+//Agregamos la informaci�n que el correo requiere
+$mail->From = "patriandsjaypi@gmail.com";
+$mail->FromName = "OTAVALO | DIGITAL Turno perdido";
+$mail->Subject = "Otavalo System";
+$mail->AltBody = "";
+
+$mail->MsgHTML('<!DOCTYPE html>
+<html lang="es"> 
+
+    <head>
+        <meta charset="utf-8" />
+        <title>Otavalo | Digital</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <meta content="" name="description" />
+        <meta content="" name="author" />
+     <style type="text/css">
+
+h1,h2,h3,h4,h5,h6{
+font-weight: normal; font-family: "MyriadPro-Light";
+
+}
+     </style>
+      
+    </head>
+    <!-- END HEAD -->
+    <!-- BEGIN BODY -->
+    <body class="lock" style="color: #888888; background: #F0F0F0;">
+        <div style="    text-align: center;">
+            <!-- BEGIN LOGO -->
+            <a class="center" id="logo" >
+                <img class="center" alt="logo" width="10%" src="http://localhost/turnos/sis_turnos/municipio/img/logo.png">
+            </a>
+            <h1 style="color:#242B5D;">OTAVALO | DIGITAL</h1>
+
+            <h3 style="color:#242B5D;">Saludos Cordiales, Sr(a) '.$data_turno['apellido'].' '.$data_turno['nombre'].'</h3>
+             <h4 style="color:#242B5D;">Esta es una notificaci&#243;n automatica, el turno con los siguientes datos se ha perdido: </h4>
+             <h4><strong>Nro. de Turno: </strong>'.$data_turno['nroturno'].'</h4>
+             <h4><strong>Departamento: </strong>'.$data_turno['nombre_departamento'].'</h4>
+             <h4><strong>Fecha: </strong>'.$data_turno['fecha'].'</h4>
+        </div>
+    </body>
+    <!-- END BODY -->
+</html>
+       ');
+$mail->AddAddress($data_turno['email'], "OTAVALO | DIGITAL Turno perdido");
+$mail->IsHTML(true);
+//Enviamos el correo electr�nico
+$mail->Send();
+}
+
+// echo("OK EMAIL");
+// Fin enviar notificacion
+
+ }
 
 }
 
@@ -393,7 +483,7 @@ $nro2=substr( $_SESSION["turnoactual"],-1);
    <script src="js/easy-pie-chart.js"></script>
    <script src="js/sparkline-chart.js"></script>
    <script src="js/home-page-calender.js"></script>
-   <script src="js/home-chartjs.js"></script>
+<!--    <script src="js/home-chartjs.js"></script> -->
 
    <!-- END JAVASCRIPTS -->   
 </body>

@@ -31,7 +31,9 @@ $resultado2 = $conexion->query($consulta2)or die ( $conexion->error);
 $fila2 = $resultado2->fetch_array();
 
 ?>
-
+<?php 
+if (count($fila)>0) {
+?>
  <div class="metro-nav-block nav-light-green">
                         <a data-original-title="" href="#">
                         <i class="icon-user"><?php echo $fila2[0]; ?></i>
@@ -48,17 +50,30 @@ $fila2 = $resultado2->fetch_array();
                         </a>
                     </div>
 
+
 <div class="metro-nav-block nav-block-orange">
                         <a data-original-title="" href="#" id="btn_detener_atencion">
                         <i class="icon-remove-sign"></i>
                         <div class="status" style="text-transform:uppercase"><strong>DETENER ATENCIÓN</strong></div>
                         </a>
                     </div>
+<?php 
+}else{
+?>
 
+<div class="metro-nav-block nav-block-green">
+                        <a data-original-title="" href="#" id="btn_reanudar_atencion">
+                        <i class="icon-reply-all"></i>
+                        <div class="status" style="text-transform:uppercase"><strong>REANUDAR ATENCIÓN</strong></div>
+                        </a>
+                    </div>
+<?php 
+}
+?>
      <script type="text/javascript">
 
  $(document).ready(function(){
-
+    // DETENER ATENCION
     $("#btn_detener_atencion").on("click", function(){
         var parametros = {};
                 $.ajax({
@@ -69,7 +84,29 @@ $fila2 = $resultado2->fetch_array();
                               // $("#div_asignacion").html("Procesando, espere por favor...");
                         },
                         success:  function (response) {
-                                console.log(response);
+                                res=JSON.parse(response);
+                                if (res.respuesta==true) {
+                                    actualizar_dep();
+                                }
+                        }
+                });
+            });
+    //REANUDAR ATENCION
+
+    $("#btn_reanudar_atencion").on("click", function(){
+        var parametros = {};
+                $.ajax({
+                        data:  parametros,
+                        url:   'proc_turnos/reanudar_atencion.php',
+                        type:  'post',
+                        beforeSend: function () {
+                              // $("#div_asignacion").html("Procesando, espere por favor...");
+                        },
+                        success:  function (response) {
+                                res=JSON.parse(response);
+                                if (res.respuesta==true) {
+                                    actualizar_dep();
+                                }
                         }
                 });
             });
