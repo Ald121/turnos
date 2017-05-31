@@ -126,6 +126,9 @@ public class mis_turnos extends AppCompatActivity {
                         if (estado.equals("EN ESPERA")){
                             restado.setBackgroundColor(Color.parseColor("#fcb322"));
                         }
+                        if (estado.equals("PERDIDO")){
+                            restado.setBackgroundColor(Color.parseColor("#7575a3"));
+                        }
 
                         Button btncancelar = new Button(getApplicationContext());
                         btncancelar.setText("CANCELAR");
