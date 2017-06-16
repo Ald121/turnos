@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "658486290059",
+    "project_id": "firebase-gcmej"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:658486290059:android:bab796903936e389",
+        "android_client_info": {
+          "package_name": "ec.turnos.caelfx.gcmej"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "658486290059-or6jc9kj9isnppqa6aa510fese7d5lui.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2bhSbLqMawoASRoW4ld-EfKjrm1PbLmE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

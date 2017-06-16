@@ -23,30 +23,38 @@ $fila = mysqli_fetch_array($resultado);
                                 <strong>TURNO ACTUAL</strong> 
                                 <h1><strong><?php
 
-$consulta = "SELECT count(nroturno) FROM turnos WHERE nroturno='".$_SESSION['turnoactual']."'";
+$consulta = "SELECT nroturno FROM turnos_proc WHERE estado='EN ESPERA' OR estado='ACTIVO'";
 $resultado = $conexion->query($consulta);
 $fila = mysqli_fetch_array($resultado);
-$nro_atendidos=$fila[0];
-if ($fila[0]==0) {
-
+// $nro_atendidos=$fila[0];
+if (count($fila)==0) {
 echo('<script> alert("NO EXISTEN MAS CLIENTES"); self.location = "index.php"</script>'); 
-
-function nro_mas($number,$n) { 
-return str_pad(((int) $number)+1,$n,"0",STR_PAD_LEFT); 
 }
+else{
+  $consulta = "SELECT count(nroturno) FROM turnos WHERE nroturno='".$_SESSION['turnoactual']."'";
+  $resultado = $conexion->query($consulta);
+  $fila = mysqli_fetch_array($resultado);
+  if ($fila[0]==0) {
 
-$consulta = "SELECT max(turnos_proc.nroturno) FROM turnos,turnos_proc,departamentos WHERE turnos.nombre_departamento=departamentos.nombre_departamento and nombre_modulo='".$_SESSION['dep']."' and turnos_proc.nroturno=turnos.nroturno and turnos_proc.estado='ATENDIDO'";
-$resultado = $conexion->query($consulta);
-$fila = mysqli_fetch_array($resultado);
+  echo('<script> alert("NO EXISTEN MAS CLIENTES"); self.location = "index.php"</script>'); 
 
-$nro1=substr($fila[0],0,strpos($fila[0],'-')+1);
-$nro2=substr($fila[0],-1);
+  function nro_mas($number,$n) { 
+  return str_pad(((int) $number)+1,$n,"0",STR_PAD_LEFT); 
+  }
 
-  $_SESSION["turnoactual"]=$nro1.nro_mas($nro2,3); 
+  $consulta = "SELECT max(turnos_proc.nroturno) FROM turnos,turnos_proc,departamentos WHERE turnos.nombre_departamento=departamentos.nombre_departamento and nombre_modulo='".$_SESSION['dep']."' and turnos_proc.nroturno=turnos.nroturno and turnos_proc.estado='ATENDIDO'";
+  $resultado = $conexion->query($consulta);
+  $fila = mysqli_fetch_array($resultado);
 
-}else{
+  $nro1=substr($fila[0],0,strpos($fila[0],'-')+1);
+  $nro2=substr($fila[0],-1);
 
-                  echo($_SESSION["turnoactual"]);
+    $_SESSION["turnoactual"]=$nro1.nro_mas($nro2,3); 
+
+  }else{
+
+                    echo($_SESSION["turnoactual"]);
+  }
 }
 
                 

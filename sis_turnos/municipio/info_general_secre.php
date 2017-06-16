@@ -179,24 +179,18 @@ function nro_menos($number,$n) {
 return str_pad(((int) $number)-1,$n,"0",STR_PAD_LEFT); 
 }
 
-/*$consulta = "SELECT nombre_modulo FROM departamentos WHERE nombre_departamento='".$_SESSION['dep']."'";
-$resultado = $conexion->query($consulta);
-$fila = mysqli_fetch_array($resultado);
-$nombre_mod=$fila[0];
-*/
-
-//$consulta = "SELECT min(turnos_proc.nroturno) FROM turnos,turnos_proc,departamentos WHERE turnos.nombre_departamento=departamentos.nombre_departamento and nombre_modulo='".$_SESSION['dep']."' and turnos_proc.nroturno=turnos.nroturno and turnos_proc.estado='EN ESPERA'";
-
-//$resultado = $conexion->query($consulta);
-//$fila = mysqli_fetch_array($resultado);
-
-
 $nro1=substr($_SESSION["turnoactual"],0,strpos($_SESSION["turnoactual"],'-')+1);
 $nro2=substr($_SESSION["turnoactual"],-1);
 
 //echo $nro1."---".$nro2;
 
 //echo "-----------------".$nro1.nro_mas($nro2,3);
+
+$sql = "SELECT estado FROM turnos_proc WHERE turnos_proc.nroturno='".$_SESSION["turnoactual"]."'";
+$resultado = $conexion->query($sql)or die($conexion->error);  
+$data_turno = $resultado->fetch_array();
+
+if ($data_turno[0]=='EN ESPERA'||$data_turno[0]=='ACTIVO') {
 
 $sql = "UPDATE turnos_proc SET estado='ATENDIDO' WHERE nroturno='".$_SESSION["turnoactual"]."'";
  $resultado = $conexion->query($sql);                                        
@@ -207,7 +201,11 @@ $sql = "UPDATE turnos_proc SET estado='ATENDIDO' WHERE nroturno='".$_SESSION["tu
                                         } else {
                                             echo "<script> alert('ERROR ESTADO');  </script>";
                                         }
+$sql = "SELECT estado FROM turnos_proc WHERE turnos_proc.nroturno='".($nro1.nro_mas($nro2,3))."'";
+$resultado = $conexion->query($sql)or die($conexion->error);  
+$data_turno = $resultado->fetch_array();
 
+if ($data_turno[0]=='EN ESPERA'||$data_turno[0]=='ACTIVO') {
 $sql = "UPDATE turnos_proc SET estado='ACTIVO' WHERE nroturno='".($nro1.nro_mas($nro2,3))."'";
  $resultado = $conexion->query($sql);                                        
                                         if ($resultado===TRUE) {
@@ -215,7 +213,7 @@ $sql = "UPDATE turnos_proc SET estado='ACTIVO' WHERE nroturno='".($nro1.nro_mas(
                                         } else {
                                             echo "<script> alert('ERROR ESTADO');  </script>";
                                         }
-
+}
 $observaciones=$_GET['observaciones'];
 
 $sql = "UPDATE turnos SET observaciones='$observaciones' WHERE nroturno='".$_SESSION["turnoactual"]."'";
@@ -234,7 +232,7 @@ $sql = "UPDATE turnos_proc SET tiempo='".$_GET['tiempo']."' WHERE nroturno='".$_
                                         } else {
                                             // echo "('ERROR TIEMPO')";
                                         }
-
+}
 }
 
   ?>
@@ -397,9 +395,10 @@ if (isset($_GET['btn_iniciar'])) {
 $consulta = "SELECT min(turnos_proc.nroturno) FROM turnos,turnos_proc,departamentos WHERE turnos.nombre_departamento=departamentos.nombre_departamento and nombre_modulo='".$_SESSION['dep']."' and turnos_proc.nroturno=turnos.nroturno and (turnos_proc.estado='EN ESPERA' or turnos_proc.estado='ACTIVO')";
 $resultado = $conexion->query($consulta)or die($conexion->error);
 $fila = mysqli_fetch_array($resultado);
-
-echo $fila[0];
 $_SESSION["turnoactual"]=$fila[0];
+
+$sql = "UPDATE turnos_proc SET estado='ACTIVO' WHERE nroturno='".$_SESSION["turnoactual"]."'";
+ $resultado = $conexion->query($sql)or die($conexion->error); 
 
 }
 
@@ -428,24 +427,30 @@ $nro2=substr( $_SESSION["turnoactual"],-1);
 
 
      <?php
-$nro2=substr( $_SESSION["turnoactual"],-1);
-
-if(isset($_GET['btn_anterior'])&&(int)$nro2>=2){
-
+// $nro2=substr( $_SESSION["turnoactual"],-1);
+$nro2=explode('-', $_SESSION["turnoactual"]);
+$nro2=intval($nro2[1]);
+if(isset($_GET['btn_anterior'])&&$nro2>=2){
 
 function nro_menos($number,$n) { 
 return str_pad(((int) $number)-1,$n,"0",STR_PAD_LEFT); 
 }
-
-$nro1=substr( $_SESSION["turnoactual"],0,strpos( $_SESSION["turnoactual"],'-')+1);
-$nro2=substr( $_SESSION["turnoactual"],-1);
+$nroaux=explode('-', $_SESSION["turnoactual"]);
+$nro1=$nroaux[0];
+$nro2=intval($nroaux[1]);
 
 
 //echo "-----------------".$nro1.nro_mas($nro2,3);
- $_SESSION["turnoactual"]=$nro1.nro_menos($nro2,3);
+ $_SESSION["turnoactual"]=$nro1.'-'.nro_menos($nro2,3);
 
-//echo $nro2;
+// echo $nro2;
 
+}
+if ($nro2==1) {
+  $consulta = "SELECT max(turnos_proc.nroturno) FROM turnos,turnos_proc,departamentos WHERE turnos.nombre_departamento=departamentos.nombre_departamento and nombre_modulo='".$_SESSION['dep']."' and turnos_proc.nroturno=turnos.nroturno and (turnos_proc.estado='EN ESPERA' or turnos_proc.estado='ACTIVO')";
+  $resultado = $conexion->query($consulta)or die($conexion->error);
+  $fila = mysqli_fetch_array($resultado);
+  $_SESSION["turnoactual"]=$fila[0];
 }
 
   ?>
