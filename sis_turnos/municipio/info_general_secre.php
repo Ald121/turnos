@@ -170,7 +170,7 @@ setInterval( "realizaProceso(document.getElementById('reloj').innerText)", 100 )
 
 if(isset($_GET['btn_terminar'])){
 
-$_SESSION["btn_iniciar"]=false;
+$_SESSION["btn_iniciar"]=true;
 
 function nro_mas($number,$n) { 
 return str_pad(((int) $number)+1,$n,"0",STR_PAD_LEFT); 
