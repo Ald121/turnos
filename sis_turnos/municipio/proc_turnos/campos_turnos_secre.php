@@ -12,10 +12,12 @@ include '../conexion.php';
 $consulta = "SELECT turnos_proc.nroturno FROM departamentos,turnos,turnos_proc WHERE turnos.nombre_departamento=departamentos.nombre_departamento and turnos_proc.estado='ACTIVO' and turnos.nroturno=turnos_proc.nroturno and nombre_modulo='".$_SESSION['dep']."'";
 $resultado = $conexion->query($consulta);
 $fila = mysqli_fetch_array($resultado);
+if (isset($_SESSION['btn_iniciar'])) {
+  if ($_SESSION['btn_iniciar']) {
+    $_SESSION["turnoactual"]=$fila['nroturno'];
+  }
+}
 
-//echo $fila[0];
-
-//$_SESSION["turnoactual"]=$fila['nroturno'];
 
               
        ?>
@@ -26,11 +28,13 @@ $fila = mysqli_fetch_array($resultado);
 $consulta = "SELECT nroturno FROM turnos_proc WHERE estado='EN ESPERA' OR estado='ACTIVO'";
 $resultado = $conexion->query($consulta);
 $fila = mysqli_fetch_array($resultado);
+// echo $fila[0];
 // $nro_atendidos=$fila[0];
 if (count($fila)==0) {
 echo('<script> alert("NO EXISTEN MAS CLIENTES"); self.location = "index.php"</script>'); 
 }
 else{
+// $_SESSION['turnoactual']=$fila[0];
   $consulta = "SELECT count(nroturno) FROM turnos WHERE nroturno='".$_SESSION['turnoactual']."'";
   $resultado = $conexion->query($consulta);
   $fila = mysqli_fetch_array($resultado);

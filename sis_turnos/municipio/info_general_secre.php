@@ -170,6 +170,7 @@ setInterval( "realizaProceso(document.getElementById('reloj').innerText)", 100 )
 
 if(isset($_GET['btn_terminar'])){
 
+$_SESSION["btn_iniciar"]=false;
 
 function nro_mas($number,$n) { 
 return str_pad(((int) $number)+1,$n,"0",STR_PAD_LEFT); 
@@ -242,6 +243,7 @@ $sql = "UPDATE turnos_proc SET tiempo='".$_GET['tiempo']."' WHERE nroturno='".$_
 
 if(isset($_GET['btn_perdido'])){
 
+$_SESSION["btn_iniciar"]=false;
 
 $sql = "SELECT nroturno FROM turnos_proc WHERE turnos_proc.nroturno='".$_SESSION["turnoactual"]."' AND turnos_proc.estado='PERDIDO';";
 $resultado = $conexion->query($sql)or die($conexion->error);  
@@ -400,6 +402,7 @@ $_SESSION["turnoactual"]=$fila[0];
 $sql = "UPDATE turnos_proc SET estado='ACTIVO' WHERE nroturno='".$_SESSION["turnoactual"]."'";
  $resultado = $conexion->query($sql)or die($conexion->error); 
 
+ $_SESSION["btn_iniciar"]=true;
 }
 
  ?>
@@ -407,7 +410,7 @@ $sql = "UPDATE turnos_proc SET estado='ACTIVO' WHERE nroturno='".$_SESSION["turn
 
     <?php
 if(isset($_GET['btn_siguiente'])){
-
+$_SESSION["btn_iniciar"]=false;
 function nro_mas($number,$n) { 
 return str_pad(((int) $number)+1,$n,"0",STR_PAD_LEFT); 
 }
