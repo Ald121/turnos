@@ -5,7 +5,7 @@ $response = array();
 
 $guardar_tuno=true;
 
-$consulta_turnos = "SELECT count(turnos_proc.nroturno) FROM turnos,turnos_proc  WHERE idusuario='".$_POST['usuario']."' and turnos_proc.nroturno=turnos.nroturno and (turnos_proc.estado='EN ESPERA' or turnos_proc.estado='ACTIVO' or turnos_proc.estado='ATENDIDO' or turnos_proc.estado='CANCELADO')";
+$consulta_turnos = "SELECT count(turnos_proc.nroturno) FROM turnos,turnos_proc  WHERE idusuario='".$_POST['usuario']."' and turnos_proc.nroturno=turnos.nroturno and (turnos_proc.estado='EN ESPERA' or turnos_proc.estado='ACTIVO' or turnos_proc.estado='ATENDIDO' or turnos_proc.estado='CANCELADO') and DAY(turnos_proc.fecha)=DAY(NOW())";
 $resultado_turnos = $conexion->query($consulta_turnos)or die ( $conexion->error);
 $fila_turnos = $resultado_turnos->fetch_array();
 $nro_turnos=$fila_turnos[0];
@@ -16,7 +16,7 @@ array_push($response, $json);
 $guardar_tuno=false;
 };
 
-$consulta_turnos = "SELECT count(turnos_proc.nroturno) FROM turnos,turnos_proc  WHERE turnos.nombre_departamento='".$_POST['departamento']."' and idusuario='".$_POST['usuario']."' and turnos_proc.nroturno=turnos.nroturno and (turnos_proc.estado='EN ESPERA' or turnos_proc.estado='ACTIVO' or turnos_proc.estado='ATENDIDO' or turnos_proc.estado='CANCELADO')";
+$consulta_turnos = "SELECT count(turnos_proc.nroturno) FROM turnos,turnos_proc  WHERE turnos.nombre_departamento='".$_POST['departamento']."' and idusuario='".$_POST['usuario']."' and turnos_proc.nroturno=turnos.nroturno and (turnos_proc.estado='EN ESPERA' or turnos_proc.estado='ACTIVO' or turnos_proc.estado='ATENDIDO' or turnos_proc.estado='CANCELADO') and DAY(turnos_proc.fecha)=DAY(NOW())";
 $resultado_turnos = $conexion->query($consulta_turnos)or die ( $conexion->error);
 $fila_turnos = $resultado_turnos->fetch_array();
 $turnosdep=$fila_turnos[0];

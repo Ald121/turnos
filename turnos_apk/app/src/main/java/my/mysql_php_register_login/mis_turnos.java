@@ -50,7 +50,8 @@ public class mis_turnos extends AppCompatActivity {
     Button generar;
 
     private RequestQueue requestQueue;
-    private static final String URL = "http://192.168.1.1/turnos_app/web_services/mis_turnos.php";
+    private static String sharedData=Globals.getServerPath();
+    private static final String URL = sharedData+"mis_turnos.php";
     private StringRequest request;
     Intent intent;
     String departamento_selected;
@@ -219,7 +220,7 @@ public void dialogo(final String idnroturno){
                     System.out.println(idnroturno);
 
                     RequestQueue requestQueue2 = Volley.newRequestQueue(getApplicationContext());
-                    String URL_cancelar = "http://192.168.1.1/turnos_app/web_services/cancelar_turno.php";
+                    String URL_cancelar = sharedData+"cancelar_turno.php";
 
                     StringRequest request2 = new StringRequest(Request.Method.POST, URL_cancelar, new Response.Listener<String>() {
                         @Override

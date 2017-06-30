@@ -40,7 +40,8 @@ RadioGroup sexo;
 Button btneditar;
     String textsexo, parametros;
     private RequestQueue requestQueue,requestQueue2;
-    private static final String URL = "http://192.168.1.1/turnos_app/web_services/cargar_perfil.php";
+    private static String sharedData=Globals.getServerPath();
+    private static final String URL = sharedData+"cargar_perfil.php";
     private StringRequest request,request2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,7 +123,7 @@ Button btneditar;
             @Override
             public void onClick(View view) {
 
-                String URL_editar = "http://192.168.1.1/turnos_app/web_services/editar_perfil.php";
+                String URL_editar = sharedData+"editar_perfil.php";
                 request2 = new StringRequest(Request.Method.POST, URL_editar, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

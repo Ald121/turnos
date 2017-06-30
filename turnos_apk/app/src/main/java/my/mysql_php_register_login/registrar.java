@@ -38,8 +38,9 @@ public class registrar extends AppCompatActivity {
     Button btn_registrar;
     String textsexo;
     private RequestQueue requestQueue;
-    private static final String URL = "http://192.168.0.19/turnos_app/web_services/registro_clientes.php";
-    private static final String URL_VALIDAR_CEDULA = "http://192.168.0.19/turnos/turnos_app/web_services/validar_cedula.php";
+    private static String sharedData=Globals.getServerPath();
+    private static final String URL = sharedData+"registro_clientes.php";
+    private static final String URL_VALIDAR_CEDULA = sharedData+"validar_cedula.php";
     private StringRequest request,request2,request3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

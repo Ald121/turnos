@@ -269,7 +269,7 @@ if ($nro_turnos==1) {
 if ($generar_turno){
 
 //date_default_timezone_set('America/Los_Angeles');
-              if(isset($_GET['btn_generar'])){
+if(isset($_GET['btn_generar'])){
 
 function number_pad($number,$n) { 
 return str_pad(((int) $number)+1,$n,"0",STR_PAD_LEFT); 

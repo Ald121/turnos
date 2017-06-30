@@ -44,7 +44,8 @@ public class generar_turno extends AppCompatActivity {
     Button generar;
 
     private RequestQueue requestQueue;
-    private static final String URL = "http://192.168.1.1/turnos_app/web_services/generar_turno.php";
+    private static String sharedData=Globals.getServerPath();
+    private static final String URL = sharedData+"generar_turno.php";
     private StringRequest request;
     Intent intent;
     String departamento_selected;
@@ -140,7 +141,7 @@ public class generar_turno extends AppCompatActivity {
             InputStream is=null;
             String result="";
             try{
-                url = new URL("http://192.168.1.1/turnos_app/web_services/get_depa.php");
+                url = new URL(sharedData+"get_depa.php");
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 is = new BufferedInputStream(urlConnection.getInputStream());
             }catch(IOException e){

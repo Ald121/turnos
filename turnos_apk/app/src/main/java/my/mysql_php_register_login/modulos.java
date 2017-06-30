@@ -53,7 +53,8 @@ public class modulos extends AppCompatActivity {
     Button generar;
 
     private RequestQueue requestQueue;
-    private static final String URL = "http://192.168.1.1/turnos_app/web_services/modulos.php";
+    private static String sharedData=Globals.getServerPath();
+    private static final String URL = sharedData+"modulos.php";
     private StringRequest request;
     Intent intent;
     String departamento_selected;

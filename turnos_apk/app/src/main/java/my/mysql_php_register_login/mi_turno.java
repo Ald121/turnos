@@ -35,7 +35,8 @@ import java.util.Map;
 public class mi_turno extends Activity {
     String parametros;
     private RequestQueue requestQueue;
-    private static final String URL = "http://192.168.1.1/turnos_app/web_services/mi_turno.php";
+    private static String sharedData=Globals.getServerPath();
+    private static final String URL = sharedData+"mi_turno.php";
     private StringRequest request;
     Intent intent;
     TextView mi_turno,fecha_turno,hora_estimada,departamento,modulo;

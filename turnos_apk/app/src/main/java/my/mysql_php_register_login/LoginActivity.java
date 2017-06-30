@@ -28,7 +28,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText email,password;
     private Button sign_in_register,btnregistrarse,close;
     private RequestQueue requestQueue;
-    private static final String URL = "http://192.168.1.1/turnos_app/web_services/user_control.php";
+    private static String sharedData=Globals.getServerPath();
+    private static final String URL = sharedData+"user_control.php";
     private StringRequest request;
     Intent intent;
     @Override
